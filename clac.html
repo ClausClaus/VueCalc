@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+        .fade-transition {
+            transition: all 1s linear;
+            opacity: 1;
+        }
+        .fade-enter,.fade-leave {
+            opacity: 0;
+        }
+    </style>
+    <script src="vue1028.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="num1">
+    <select v-model="currentOperation">
+        <option :value="item" v-for='item in operation'>{{item}}</option>
+    </select>
+    <input type="text" v-model="num2">
+    <input type="text" :value="result">
+    <button @click="calc" :class="[{red:result>10},{green:result<5}]">calc</button>
+    <p class="fade" v-show="result>10" transition="fade">{{result}}</p>
+    <!--<transition name="fade">-->
+        <!--<p class="fade" v-show="result>10">{{result}}</p>-->
+    <!--</transition>-->
+</div>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            num1: '0',
+            num2: '0',
+            result: '0',
+            currentOperation: '+',
+            operation: ['+', '-', '*', '/']
+        },
+       computed: {
+           result() {
+               return eval(`${this.num1} ${this.currentOperation} ${this.num2}`);
+           }
+       }
+        // methods: {
+        //     calc: function () {
+        //         this.result = eval(`${this.num1} ${this.currentOperation} ${this.num2}`);
+        //     }
+        // }
+    });
+
+</script>
+</body>
+</html>
